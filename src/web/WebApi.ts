@@ -1,0 +1,68 @@
+import { ApolloLink, InMemoryCache } from 'apollo-boost';
+import {
+    ApolloClient,
+    ApolloQueryResult,
+    ErrorPolicy,
+    FetchPolicy,
+    MutationOptions,
+    OperationVariables,
+    QueryOptions,
+} from 'apollo-client';
+import { FetchResult } from 'apollo-link';
+import { setContext } from 'apollo-link-context';
+import { onError } from 'apollo-link-error';
+import { createHttpLink } from 'apollo-link-http';
+import Api from '../business/Api';
+import { API_URL } from '../business/common/constants/ServerConstants';
+
+const WebApi = (): Api => {
+    const httpLink = createHttpLink({
+        uri: API_URL,
+    });
+
+    const authLink = setContext(async (_: any, { headers }: any) => {
+        // const token = await AppCache.getToken();
+        const token = 'fgdfgdfg';
+        // return the headers to the context so httpLink can read them
+        return {
+            headers: { ...headers, authorization: token ? `Bearer ${token}` : '' },
+        };
+    });
+
+    const errorLink = onError(({ networkError }) => {
+        if (networkError) {
+            // tslint:disable-next-line: no-console
+            console.log(`[Network error]: ${networkError}`);
+        }
+    });
+
+    const link = authLink.concat(httpLink);
+
+    const apolloClient: ApolloClient<any> = new ApolloClient({
+        cache: new InMemoryCache(),
+        link: ApolloLink.from([errorLink, link]),
+    });
+
+    function query<T, TVariables = OperationVariables>(
+        options: QueryOptions<TVariables>,
+    ): Promise<ApolloQueryResult<T>> {
+        const defaultOptions = {
+            fetchPolicy: 'no-cache' as FetchPolicy,
+            errorPolicy: 'all' as ErrorPolicy,
+        };
+        return apolloClient.query({ ...defaultOptions, ...options });
+    }
+
+    function mutate<T, TVariables = OperationVariables>(
+        options: MutationOptions<T, TVariables>,
+    ): Promise<FetchResult<T>> {
+        const defaultOptions = {
+            errorPolicy: 'all' as ErrorPolicy,
+        };
+        return apolloClient.mutate({ ...defaultOptions, ...options });
+    }
+
+    return { query, mutate };
+};
+
+export default WebApi;
