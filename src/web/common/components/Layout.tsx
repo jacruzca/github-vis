@@ -16,9 +16,9 @@ const Body = styled.div`
 const Layout = ({ children }: Props) => {
     return (
         <Container>
-            <Header></Header>
+            <Header />
             <Body>{children}</Body>
-            <Footer></Footer>
+            <Footer />
         </Container>
     );
 };

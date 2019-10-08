@@ -1,43 +1,29 @@
-import React, { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import { selectError, selectLoading } from '../../../business/common/common-selectors';
-import { loadSongs } from '../../../business/songs/songs-actions';
-import { selectSongs, selectSongsList } from '../../../business/songs/songs-selectors';
+import { IRootState } from '../../../business/Reducers';
+import {
+    selectUsersList,
+    selectUsersListError,
+    selectUsersListLoading,
+} from '../../../business/users/users-list-selectors';
 import withErrorBoundary from '../../utils/hocs/WithErrorBoundary';
+import UsersPage from '../components/UsersPage';
 
-const SongsPage = ({ onSubmitForm }) => {
-    useEffect(() => {
-        onSubmitForm();
-    }, [onSubmitForm]);
-
-    return <div>Songs list!!!!</div>;
-};
-
-const mapStateToProps = createStructuredSelector({
-    songs: selectSongsList(),
-    error: selectError(selectSongs),
-    loading: selectLoading(selectSongs),
-});
-
-export function mapDispatchToProps(dispatch) {
+const mapStateToProps = (state: IRootState) => {
     return {
-        onSubmitForm: evt => {
-            if (evt !== undefined && evt.preventDefault) {
-                evt.preventDefault();
-            }
-            dispatch(loadSongs());
-        },
+        error: selectUsersListError(state),
+        loading: selectUsersListLoading(state),
+        usersList: selectUsersList(state),
     };
-}
+};
 
 const withConnect = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    null,
 );
 
 export default compose(
     withConnect,
     memo,
-)(withErrorBoundary(SongsPage));
+)(withErrorBoundary(UsersPage));

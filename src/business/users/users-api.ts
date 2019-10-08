@@ -1,35 +1,49 @@
 import { ApolloQueryResult } from 'apollo-client';
 import gql from 'graphql-tag';
 import Api from '../Api';
-import { ApiPagination } from '../common/types/common-types';
-import { User } from '../users/users-types';
+import { ApiPagination, Edge, PageInfo, PAGE_INFO_FIELDS } from '../common/common-types';
+import { User } from './users-types';
 
 export const USER_FIELDS = `
-id  
-name
-login
+    id  
+    name
+    login
+    avatarUrl(size: 200)
 `;
 
 export interface UsersListResult {
-    errors?: [];
-    data: {
-        users: [User];
+    search: {
+        userCount: number;
+        pageInfo: PageInfo;
+        edges: [Edge<User>];
     };
 }
 
-export default (api: Api) => {
-    const getUsersList = (pagination: ApiPagination) => {
+const UsersApi = (api: Api) => {
+    const getUsersList = (login?: string, pagination?: ApiPagination): Promise<ApolloQueryResult<UsersListResult>> => {
         const USERS_QUERY = gql`
-            query($pagination: PaginationFilter!) {
-                allArchivedEntries(pagination: $pagination) {
-                ${USER_FIELDS}
+            query($login: String!, $first: Int) {
+                search(query: $login, type: USER, first: $first) {
+                    userCount
+                    pageInfo {
+                        ${PAGE_INFO_FIELDS}
+                    }
+                    edges {
+                        node {
+                            ... on User {
+                                ${USER_FIELDS}
+                            }
+                        }
+                        cursor
+                    }
                 }
             }
         `;
         const result = api.query({
             query: USERS_QUERY,
             variables: {
-                pagination,
+                login,
+                ...pagination,
             },
         });
         return result as Promise<ApolloQueryResult<UsersListResult>>;
@@ -37,3 +51,5 @@ export default (api: Api) => {
 
     return { getUsersList };
 };
+
+export default UsersApi;

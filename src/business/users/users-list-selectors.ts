@@ -3,12 +3,29 @@
  */
 
 import { createSelector } from 'reselect';
-import { initialState } from './users-list-reducer';
-import { UsersListState } from './users-types';
+import { DefaultState } from '../common/common-types';
+import { IRootState } from '../Reducers';
+import { UsersListResult } from './users-api';
 
-export const selectUsers = (state: UsersListState) => state.users || initialState;
-export const selectUsersList = () =>
-    createSelector(
-        selectUsers,
-        users => users,
-    );
+export const selectUsersListResponse = (state: IRootState) => state.usersList;
+
+export const selectUsersListData = createSelector(
+    selectUsersListResponse,
+    (response: DefaultState<UsersListResult>) => response.data,
+);
+
+export const selectUsersListError = createSelector(
+    selectUsersListResponse,
+    (response: DefaultState<UsersListResult>) => response.error,
+);
+
+export const selectUsersListLoading = createSelector(
+    selectUsersListResponse,
+    (response: DefaultState<UsersListResult>) => response.loading,
+);
+
+export const selectUsersList = createSelector(
+    selectUsersListData,
+    (data?: UsersListResult) =>
+        data && data.search && data.search.edges ? data.search.edges.map(edge => edge.node) : [],
+);

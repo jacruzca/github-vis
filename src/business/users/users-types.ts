@@ -1,3 +1,6 @@
+import { DefaultState } from '../common/common-types';
+import { UsersListResult } from './users-api';
+
 export const LOAD_USERS = 'USERS/LOAD';
 export type LOAD_USERS = typeof LOAD_USERS;
 export const LOAD_USERS_SUCCESS = 'USERS/LOAD_SUCCESS';
@@ -14,8 +17,4 @@ export type User = {
     login: string;
 };
 
-export type UsersListState = {
-    loading: boolean;
-    error?: string | null;
-    users: [User?];
-};
+export type UsersListState = DefaultState<UsersListResult>;

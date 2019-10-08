@@ -12,8 +12,9 @@ import { FetchResult } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { createHttpLink } from 'apollo-link-http';
+import apolloLogger from 'apollo-link-logger';
 import Api from '../business/Api';
-import { API_URL } from '../business/common/constants/ServerConstants';
+import { API_URL, GITHUB_KEY } from '../business/common/common-constants';
 
 const WebApi = (): Api => {
     const httpLink = createHttpLink({
@@ -21,8 +22,7 @@ const WebApi = (): Api => {
     });
 
     const authLink = setContext(async (_: any, { headers }: any) => {
-        // const token = await AppCache.getToken();
-        const token = 'fgdfgdfg';
+        const token = GITHUB_KEY;
         // return the headers to the context so httpLink can read them
         return {
             headers: { ...headers, authorization: token ? `Bearer ${token}` : '' },
@@ -31,16 +31,22 @@ const WebApi = (): Api => {
 
     const errorLink = onError(({ networkError }) => {
         if (networkError) {
-            // tslint:disable-next-line: no-console
-            console.log(`[Network error]: ${networkError}`);
+            // eslint-disable-next-line no-console
+            console.error(`[Network error]: ${networkError}`);
         }
     });
 
     const link = authLink.concat(httpLink);
 
+    const links = [errorLink, link];
+
+    if (process.env.NODE_ENV === 'development') {
+        links.unshift(apolloLogger);
+    }
+
     const apolloClient: ApolloClient<any> = new ApolloClient({
         cache: new InMemoryCache(),
-        link: ApolloLink.from([errorLink, link]),
+        link: ApolloLink.from(links),
     });
 
     function query<T, TVariables = OperationVariables>(

@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { FunctionComponent, memo } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import useForm from 'react-hook-form';
+import { connect } from 'react-redux';
+import { compose, Dispatch } from 'redux';
+import { ApiPagination } from '../../../business/common/common-types';
+import { loadUsers, LoadUsers } from '../../../business/users/users-list-actions';
 
-const UsersSearchForm = () => {
+type Props = {
+    loadUsers: (login?: string, pagination?: ApiPagination) => void;
+};
+
+const UsersSearchForm: FunctionComponent<Props> = (props: Props) => {
+    const { register, handleSubmit, errors } = useForm();
+    const onSubmit = (data: any) => {
+        props.loadUsers(data.login);
+    };
+
     return (
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group as={Row} controlId="formHorizontalEmail">
                 <Form.Label column sm={2}>
                     GH Username
                 </Form.Label>
                 <Col sm={8}>
-                    <Form.Control type="username" placeholder="ex. jacruzca" />
+                    <Form.Control
+                        name="login"
+                        type="text"
+                        placeholder="ex. jacruzca"
+                        defaultValue={'jacruz'}
+                        ref={register}
+                    />
+                    <Form.Control.Feedback type="invalid">{errors.login}</Form.Control.Feedback>
                 </Col>
                 <Col sm={2}>
                     <Button type="submit">Search</Button>
@@ -19,4 +40,20 @@ const UsersSearchForm = () => {
     );
 };
 
-export default UsersSearchForm;
+const mapDispatchToProps = (dispatch: Dispatch<LoadUsers>): Partial<Props> => {
+    return {
+        loadUsers: (login?: string, pagination?: ApiPagination) => {
+            dispatch(loadUsers(login, pagination));
+        },
+    };
+};
+
+const withConnect = connect(
+    null,
+    mapDispatchToProps,
+);
+
+export default compose(
+    withConnect,
+    memo,
+)(UsersSearchForm) as React.ComponentType;

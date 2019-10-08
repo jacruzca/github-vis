@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+import { User } from '../../../business/users/users-types';
 import Layout from '../../common/components/Layout';
-import withErrorBoundary from '../../utils/hocs/WithErrorBoundary';
+import DisplayErrorComponent from '../../utils/components/DisplayErrorComponent';
+import DisplayLoadingComponent from '../../utils/components/DisplayLoadingComponent';
+import UsersList from './UsersList';
 import UsersSearchForm from './UsersSearchForm';
 
-type Props = {
-    onSubmitForm: () => void;
+export type UsersPageProps = {
+    error?: Error;
+    loading?: boolean;
+    usersList: User[];
 };
 
-const UsersPage = ({ onSubmitForm }: Props) => {
+const UsersPage: FunctionComponent<UsersPageProps> = ({ error, loading, usersList }: UsersPageProps) => {
     return (
         <Layout>
             <>
                 <UsersSearchForm />
-                <div>Home page!</div>
+                <DisplayErrorComponent error={error} />
+                <DisplayLoadingComponent loading={loading} />
+                <UsersList usersList={usersList}></UsersList>
             </>
         </Layout>
     );
 };
 
-export default withErrorBoundary(UsersPage);
+export default UsersPage;

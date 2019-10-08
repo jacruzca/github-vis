@@ -9,7 +9,7 @@ import withErrorBoundary from './utils/hocs/WithErrorBoundary';
 import loader from './utils/Loader';
 import WebApi from './WebApi';
 
-const UsersPage = loader(() => import('./users/components/UsersPage'), {
+const UsersContainer = loader(() => import('./users/containers/UsersContainer'), {
     fallback: <LoaderComponent />,
 });
 
@@ -22,7 +22,7 @@ const App = () => {
             <Router>
                 <Suspense fallback={<LoaderComponent />}>
                     <Switch>
-                        <Route exact path="/" component={UsersPage} />
+                        <Route exact path="/" component={UsersContainer} />
                         <Route path="/about" component={() => <div>about!</div>} />
                     </Switch>
                 </Suspense>

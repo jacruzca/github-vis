@@ -7,10 +7,10 @@
 
 export interface ErrorAction<T> {
     type: T;
-    error: string;
+    error: Error;
 }
 
-export function actionFailed<T>(type: T, error: string): ErrorAction<T> {
+export function actionFailed<T>(type: T, error: Error): ErrorAction<T> {
     return {
         type,
         error,

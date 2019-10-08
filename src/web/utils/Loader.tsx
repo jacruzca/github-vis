@@ -1,9 +1,6 @@
-import React, { ComponentType, lazy, Props, Suspense } from 'react';
+import React, { lazy, Props, Suspense } from 'react';
 
-const Loader = (
-    importFunc: () => Promise<{ default: ComponentType<any> }>,
-    { fallback }: { fallback: React.ReactElement<any> },
-) => {
+const Loader = (importFunc: () => Promise<any>, { fallback }: { fallback: React.ReactElement<any> }) => {
     const LazyComponent = lazy(importFunc);
 
     const Component = (props: Props<any>) => (

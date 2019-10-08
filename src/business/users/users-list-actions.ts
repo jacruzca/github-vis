@@ -1,35 +1,32 @@
-import { ErrorAction } from '../common/actions/common-actions';
-import { ApiPagination } from '../common/types/common-types';
-import { LOAD_USERS, LOAD_USERS_ERROR, LOAD_USERS_SUCCESS, User } from './users-types';
-
-export type LoadUsersFilter = {
-    name: string;
-};
+import { ErrorAction } from '../common/common-actions';
+import { ApiPagination } from '../common/common-types';
+import { UsersListResult } from './users-api';
+import { LOAD_USERS, LOAD_USERS_ERROR, LOAD_USERS_SUCCESS } from './users-types';
 
 export interface LoadUsersAction {
     type: LOAD_USERS;
-    filters: LoadUsersFilter;
-    pagination: ApiPagination;
+    login?: string;
+    pagination?: ApiPagination;
 }
 
 export interface LoadUsersSuccess {
     type: LOAD_USERS_SUCCESS;
-    users: [User?];
+    data: UsersListResult;
 }
 
 export type LoadUsers = LoadUsersAction | LoadUsersSuccess | ErrorAction<LOAD_USERS_ERROR>;
 
-export const loadUsers = (filters: LoadUsersFilter, pagination: ApiPagination): LoadUsersAction => {
+export const loadUsers = (login?: string, pagination?: ApiPagination): LoadUsersAction => {
     return {
         type: LOAD_USERS,
-        filters,
+        login,
         pagination,
     };
 };
 
-export const loadUsersSuccess = (users: [User?]): LoadUsersSuccess => {
+export const loadUsersSuccess = (data: UsersListResult): LoadUsersSuccess => {
     return {
         type: LOAD_USERS_SUCCESS,
-        users,
+        data,
     };
 };

@@ -5,8 +5,6 @@ import { LOAD_USERS, LOAD_USERS_ERROR, LOAD_USERS_SUCCESS, UsersListState } from
 // The initial state of the App
 export const initialState: UsersListState = {
     loading: false,
-    error: null,
-    users: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -19,12 +17,10 @@ const usersListReducer = (state = initialState, action: LoadUsers) =>
         switch (action.type) {
             case LOAD_USERS:
                 draft.loading = true;
-                draft.error = null;
-                draft.users = [];
                 break;
 
             case LOAD_USERS_SUCCESS:
-                draft.users = action.users;
+                draft.data = action.data;
                 draft.loading = false;
                 break;
 
