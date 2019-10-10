@@ -17,4 +17,7 @@ export type User = {
     login: string;
 };
 
-export type UsersListState = DefaultState<UsersListResult>;
+type UsersListOwnState = {
+    login?: string;
+};
+export type UsersListState = DefaultState<UsersListResult> & UsersListOwnState;

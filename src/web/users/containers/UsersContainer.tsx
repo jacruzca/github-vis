@@ -6,6 +6,7 @@ import {
     selectUsersList,
     selectUsersListError,
     selectUsersListLoading,
+    selectUsersListLogin,
 } from '../../../business/users/users-list-selectors';
 import withErrorBoundary from '../../utils/hocs/WithErrorBoundary';
 import UsersPage from '../components/UsersPage';
@@ -15,6 +16,7 @@ const mapStateToProps = (state: IRootState) => {
         error: selectUsersListError(state),
         loading: selectUsersListLoading(state),
         usersList: selectUsersList(state),
+        login: selectUsersListLogin(state),
     };
 };
 

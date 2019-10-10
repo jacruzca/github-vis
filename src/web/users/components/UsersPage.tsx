@@ -9,17 +9,18 @@ import UsersSearchForm from './UsersSearchForm';
 export type UsersPageProps = {
     error?: Error;
     loading?: boolean;
+    login?: string;
     usersList: User[];
 };
 
-const UsersPage: FunctionComponent<UsersPageProps> = ({ error, loading, usersList }: UsersPageProps) => {
+const UsersPage: FunctionComponent<UsersPageProps> = ({ error, loading, usersList, login }: UsersPageProps) => {
     return (
         <Layout>
             <>
                 <UsersSearchForm />
                 <DisplayErrorComponent error={error} />
                 <DisplayLoadingComponent loading={loading} />
-                <UsersList usersList={usersList}></UsersList>
+                <UsersList usersList={usersList} login={login}></UsersList>
             </>
         </Layout>
     );

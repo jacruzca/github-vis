@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from 'react';
+import React, { FunctionComponent, memo, useEffect } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import useForm from 'react-hook-form';
 import { connect } from 'react-redux';
@@ -8,12 +8,16 @@ import { loadUsers, LoadUsers } from '../../../business/users/users-list-actions
 
 type Props = {
     loadUsers: (login?: string, pagination?: ApiPagination) => void;
+    login?: string;
 };
 
-const UsersSearchForm: FunctionComponent<Props> = (props: Props) => {
+const UsersSearchForm: FunctionComponent<Props> = ({ loadUsers, login = 'jacruz' }: Props) => {
+    useEffect(() => {
+        loadUsers(login);
+    }, [login]);
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = (data: any) => {
-        props.loadUsers(data.login);
+        loadUsers(data.login);
     };
 
     return (
@@ -27,7 +31,7 @@ const UsersSearchForm: FunctionComponent<Props> = (props: Props) => {
                         name="login"
                         type="text"
                         placeholder="ex. jacruzca"
-                        defaultValue={'jacruz'}
+                        defaultValue={login}
                         ref={register}
                     />
                     <Form.Control.Feedback type="invalid">{errors.login}</Form.Control.Feedback>

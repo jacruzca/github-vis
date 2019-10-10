@@ -17,6 +17,7 @@ const usersListReducer = (state = initialState, action: LoadUsers) =>
         switch (action.type) {
             case LOAD_USERS:
                 draft.loading = true;
+                draft.login = action.login;
                 break;
 
             case LOAD_USERS_SUCCESS:

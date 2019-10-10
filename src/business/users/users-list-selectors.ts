@@ -3,25 +3,30 @@
  */
 
 import { createSelector } from 'reselect';
-import { DefaultState } from '../common/common-types';
 import { IRootState } from '../Reducers';
 import { UsersListResult } from './users-api';
+import { UsersListState } from './users-types';
 
 export const selectUsersListResponse = (state: IRootState) => state.usersList;
 
+export const selectUsersListLogin = createSelector(
+    selectUsersListResponse,
+    (response: UsersListState) => response.login,
+);
+
 export const selectUsersListData = createSelector(
     selectUsersListResponse,
-    (response: DefaultState<UsersListResult>) => response.data,
+    (response: UsersListState) => response.data,
 );
 
 export const selectUsersListError = createSelector(
     selectUsersListResponse,
-    (response: DefaultState<UsersListResult>) => response.error,
+    (response: UsersListState) => response.error,
 );
 
 export const selectUsersListLoading = createSelector(
     selectUsersListResponse,
-    (response: DefaultState<UsersListResult>) => response.loading,
+    (response: UsersListState) => response.loading,
 );
 
 export const selectUsersList = createSelector(
