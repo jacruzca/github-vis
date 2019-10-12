@@ -1,10 +1,16 @@
 import produce from 'immer';
 import { LoadUsers } from './users-list-actions';
-import { LOAD_USERS, LOAD_USERS_ERROR, LOAD_USERS_SUCCESS, UsersListState } from './users-types';
+import {
+    LOAD_USERS,
+    LOAD_USERS_ERROR,
+    LOAD_USERS_SUCCESS,
+    UsersListState,
+} from './users-types';
 
 // The initial state of the App
 export const initialState: UsersListState = {
     loading: false,
+    login: 'jacruz',
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -17,7 +23,9 @@ const usersListReducer = (state = initialState, action: LoadUsers) =>
         switch (action.type) {
             case LOAD_USERS:
                 draft.loading = true;
-                draft.login = action.login;
+                if (action.login) {
+                    draft.login = action.login;
+                }
                 break;
 
             case LOAD_USERS_SUCCESS:
@@ -26,7 +34,7 @@ const usersListReducer = (state = initialState, action: LoadUsers) =>
                 break;
 
             case LOAD_USERS_ERROR:
-                draft.error = action.error;
+                draft.errors = [...action.errors];
                 draft.loading = false;
                 break;
         }

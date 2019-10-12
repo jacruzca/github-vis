@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Nav, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderContainer = styled(Row)`
@@ -15,10 +16,19 @@ const Header = () => {
             <Col>
                 <Nav className="justify-content-end" activeKey="/users">
                     <Nav.Item>
-                        <Nav.Link href="/users">Users</Nav.Link>
+                        <Nav.Link as={Link} to="/users">
+                            Users
+                        </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/repositories">Repositories</Nav.Link>
+                        <Nav.Link as={Link} to="/repositories">
+                            Repositories
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={Link} to="/about">
+                            About
+                        </Nav.Link>
                     </Nav.Item>
                 </Nav>
             </Col>

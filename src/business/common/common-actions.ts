@@ -7,12 +7,15 @@
 
 export interface ErrorAction<T> {
     type: T;
-    error: Error;
+    errors: readonly Error[];
 }
 
-export function actionFailed<T>(type: T, error: Error): ErrorAction<T> {
+export function actionFailed<T>(
+    type: T,
+    errors: readonly Error[],
+): ErrorAction<T> {
     return {
         type,
-        error,
+        errors,
     };
 }

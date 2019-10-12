@@ -6,10 +6,17 @@ type Props = {
     error: string;
 };
 
-const DisplayNoResultsComponent: FunctionComponent<Props> = ({ isEmpty = false, error }: Props) => {
+const DisplayNoResultsComponent: FunctionComponent<Props> = ({
+    isEmpty = false,
+    error,
+}: Props) => {
     if (isEmpty) {
         return (
-            <div className="alert alert-warning" role="alert">
+            <div
+                data-testid="no-results"
+                className="alert alert-warning"
+                role="alert"
+            >
                 {error}
             </div>
         );

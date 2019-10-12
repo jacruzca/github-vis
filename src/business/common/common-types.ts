@@ -16,7 +16,7 @@ export type Edge<T> = {
 
 export type DefaultState<T> = {
     loading: boolean;
-    error?: Error;
+    errors?: Error[];
     data?: T;
 };
 

@@ -1,27 +1,27 @@
-import React, { FunctionComponent, memo, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useMemo } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import useForm from 'react-hook-form';
-import { connect } from 'react-redux';
-import { compose, Dispatch } from 'redux';
 import { ApiPagination } from '../../../business/common/common-types';
-import { loadUsers, LoadUsers } from '../../../business/users/users-list-actions';
 
-type Props = {
+export type UsersSearchFormProps = {
     loadUsers: (login?: string, pagination?: ApiPagination) => void;
     login?: string;
 };
 
-const UsersSearchForm: FunctionComponent<Props> = ({ loadUsers, login = 'jacruz' }: Props) => {
+const UsersSearchForm: FunctionComponent<UsersSearchFormProps> = ({ loadUsers, login }: UsersSearchFormProps) => {
     useEffect(() => {
         loadUsers(login);
-    }, [login]);
+    }, [loadUsers, login]);
     const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data: any) => {
-        loadUsers(data.login);
-    };
+    const onSubmit = useMemo(
+        () => (data: any) => {
+            loadUsers(data.login);
+        },
+        [loadUsers],
+    );
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form data-testid="users-search-form" onSubmit={handleSubmit(onSubmit)}>
             <Form.Group as={Row} controlId="formHorizontalEmail">
                 <Form.Label column sm={2}>
                     GH Username
@@ -44,20 +44,4 @@ const UsersSearchForm: FunctionComponent<Props> = ({ loadUsers, login = 'jacruz'
     );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<LoadUsers>): Partial<Props> => {
-    return {
-        loadUsers: (login?: string, pagination?: ApiPagination) => {
-            dispatch(loadUsers(login, pagination));
-        },
-    };
-};
-
-const withConnect = connect(
-    null,
-    mapDispatchToProps,
-);
-
-export default compose(
-    withConnect,
-    memo,
-)(UsersSearchForm) as React.ComponentType;
+export default UsersSearchForm;

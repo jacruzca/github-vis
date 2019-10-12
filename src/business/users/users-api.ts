@@ -1,7 +1,12 @@
 import { ApolloQueryResult } from 'apollo-client';
 import gql from 'graphql-tag';
 import Api from '../Api';
-import { ApiPagination, Edge, PageInfo, PAGE_INFO_FIELDS } from '../common/common-types';
+import {
+    ApiPagination,
+    Edge,
+    PageInfo,
+    PAGE_INFO_FIELDS,
+} from '../common/common-types';
 import { User } from './users-types';
 
 export const USER_FIELDS = `
@@ -20,7 +25,10 @@ export interface UsersListResult {
 }
 
 const UsersApi = (api: Api) => {
-    const getUsersList = (login?: string, pagination?: ApiPagination): Promise<ApolloQueryResult<UsersListResult>> => {
+    const getUsersList = (
+        login?: string,
+        pagination?: ApiPagination,
+    ): Promise<ApolloQueryResult<UsersListResult>> => {
         const USERS_QUERY = gql`
             query($login: String!, $first: Int) {
                 search(query: $login, type: USER, first: $first) {

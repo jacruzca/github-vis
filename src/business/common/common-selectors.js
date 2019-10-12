@@ -4,7 +4,6 @@ export const selectError = fromSelector => () => {
     return createSelector(
         fromSelector,
         state => {
-            console.log('state', state);
             return state.error;
         },
     );

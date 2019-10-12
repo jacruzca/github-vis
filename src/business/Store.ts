@@ -11,16 +11,25 @@ import Api from './Api';
 import createReducer from './Reducers';
 import sagas from './Sagas';
 
-declare let module: { hot: any };
-
-export default function configureStore(initialState = {}, history: History, api: Api) {
+export default function configureStore(
+    initialState = {},
+    history?: History,
+    api?: Api,
+) {
     const reduxSagaMonitorOptions = {};
 
     // this makes redux-sagas work
     const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
 
     // routerMiddleware syncs the url path to the state
-    const middlewares = [sagaMiddleware, routerMiddleware(history)];
+    const middlewares = [];
+    if (history) {
+        const historyMiddleware = routerMiddleware(history);
+        middlewares.push(historyMiddleware);
+    }
+    if (api) {
+        middlewares.push(sagaMiddleware);
+    }
     if (process.env.NODE_ENV === `development`) {
         // eslint-disable-next-line
         const { logger } = require(`redux-logger`);
@@ -30,9 +39,15 @@ export default function configureStore(initialState = {}, history: History, api:
 
     const enhancers = [applyMiddleware(...middlewares)];
 
-    const store = createStore(createReducer(), initialState, composeWithDevTools(compose(...enhancers)));
+    const store = createStore(
+        createReducer(),
+        initialState,
+        composeWithDevTools(compose(...enhancers)),
+    );
 
-    sagaMiddleware.run(sagas, api);
+    if (api) {
+        sagaMiddleware.run(sagas, api);
+    }
 
     return store;
 }

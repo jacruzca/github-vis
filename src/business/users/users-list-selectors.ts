@@ -3,11 +3,11 @@
  */
 
 import { createSelector } from 'reselect';
-import { IRootState } from '../Reducers';
+import { RootState } from '../Reducers';
 import { UsersListResult } from './users-api';
 import { UsersListState } from './users-types';
 
-export const selectUsersListResponse = (state: IRootState) => state.usersList;
+export const selectUsersListResponse = (state: RootState) => state.usersList;
 
 export const selectUsersListLogin = createSelector(
     selectUsersListResponse,
@@ -19,9 +19,9 @@ export const selectUsersListData = createSelector(
     (response: UsersListState) => response.data,
 );
 
-export const selectUsersListError = createSelector(
+export const selectUsersListErrors = createSelector(
     selectUsersListResponse,
-    (response: UsersListState) => response.error,
+    (response: UsersListState) => response.errors,
 );
 
 export const selectUsersListLoading = createSelector(
@@ -32,5 +32,7 @@ export const selectUsersListLoading = createSelector(
 export const selectUsersList = createSelector(
     selectUsersListData,
     (data?: UsersListResult) =>
-        data && data.search && data.search.edges ? data.search.edges.map(edge => edge.node) : [],
+        data && data.search && data.search.edges
+            ? data.search.edges.map(edge => edge.node)
+            : [],
 );

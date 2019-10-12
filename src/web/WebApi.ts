@@ -25,7 +25,10 @@ const WebApi = (): Api => {
         const token = GITHUB_KEY;
         // return the headers to the context so httpLink can read them
         return {
-            headers: { ...headers, authorization: token ? `Bearer ${token}` : '' },
+            headers: {
+                ...headers,
+                authorization: token ? `Bearer ${token}` : '',
+            },
         };
     });
 
@@ -62,9 +65,7 @@ const WebApi = (): Api => {
     function mutate<T, TVariables = OperationVariables>(
         options: MutationOptions<T, TVariables>,
     ): Promise<FetchResult<T>> {
-        const defaultOptions = {
-            errorPolicy: 'all' as ErrorPolicy,
-        };
+        const defaultOptions = { errorPolicy: 'all' as ErrorPolicy };
         return apolloClient.mutate({ ...defaultOptions, ...options });
     }
 

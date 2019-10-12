@@ -19,7 +19,7 @@ const CenteredCol = styled(Col)`
 const UsersList: FunctionComponent<Props> = ({ usersList, login }: Props) => {
     if (usersList.length > 0) {
         return (
-            <Row>
+            <Row data-testid="users-list">
                 {usersList.map((user: User) => (
                     <CenteredCol xs={3} key={user.id}>
                         <UserCard user={user}></UserCard>
@@ -29,7 +29,10 @@ const UsersList: FunctionComponent<Props> = ({ usersList, login }: Props) => {
         );
     }
     return (
-        <DisplayNoResultsComponent isEmpty={true} error={`No users for query: ${login}`}></DisplayNoResultsComponent>
+        <DisplayNoResultsComponent
+            isEmpty={true}
+            error={`No users for query: ${login}`}
+        ></DisplayNoResultsComponent>
     );
 };
 

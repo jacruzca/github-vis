@@ -8,7 +8,10 @@ type Props = {
 const DisplayLoadingComponent = ({ loading }: Props) => {
     if (loading) {
         return (
-            <div className="d-flex justify-content-center">
+            <div
+                data-testid="loading"
+                className="d-flex justify-content-center"
+            >
                 <LoaderComponent />
             </div>
         );

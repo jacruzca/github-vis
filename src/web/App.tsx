@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import configureStore from '../business/Store';
 import './App.css';
 import LoaderComponent from './utils/components/LoaderComponent';
@@ -23,7 +23,14 @@ const App = () => {
                 <Suspense fallback={<LoaderComponent />}>
                     <Switch>
                         <Route exact path="/" component={UsersContainer} />
-                        <Route path="/about" component={() => <div>about!</div>} />
+                        <Route
+                            path="/about"
+                            component={() => (
+                                <div>
+                                    <Link to="/">about!</Link>
+                                </div>
+                            )}
+                        />
                     </Switch>
                 </Suspense>
             </Router>

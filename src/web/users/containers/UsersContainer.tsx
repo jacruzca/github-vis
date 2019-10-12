@@ -1,19 +1,19 @@
 import { memo } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { IRootState } from '../../../business/Reducers';
+import { RootState } from '../../../business/Reducers';
 import {
     selectUsersList,
-    selectUsersListError,
+    selectUsersListErrors,
     selectUsersListLoading,
     selectUsersListLogin,
 } from '../../../business/users/users-list-selectors';
 import withErrorBoundary from '../../utils/hocs/WithErrorBoundary';
-import UsersPage from '../components/UsersPage';
+import UsersPage, { UsersPageProps } from '../components/UsersPage';
 
-const mapStateToProps = (state: IRootState) => {
+const mapStateToProps = (state: RootState): UsersPageProps => {
     return {
-        error: selectUsersListError(state),
+        errors: selectUsersListErrors(state),
         loading: selectUsersListLoading(state),
         usersList: selectUsersList(state),
         login: selectUsersListLogin(state),

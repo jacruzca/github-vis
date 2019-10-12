@@ -18,7 +18,13 @@ module.exports = {
             jsx: true, // Allows for the parsing of JSX
         },
     },
-    plugins: ['@typescript-eslint', 'prettier', 'redux-saga', 'react', 'react-hooks'],
+    plugins: [
+        '@typescript-eslint',
+        'prettier',
+        'redux-saga',
+        'react',
+        'react-hooks',
+    ],
     rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-explicit-any': 'off',

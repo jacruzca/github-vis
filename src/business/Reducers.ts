@@ -8,7 +8,7 @@ import history from '../web/utils/History';
 import usersList from './users/users-list-reducers';
 import { UsersListState } from './users/users-types';
 
-export type IRootState = {
+export type RootState = {
     usersList: UsersListState;
 };
 
