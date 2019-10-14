@@ -28,4 +28,4 @@ const withConnect = connect(
 export default compose(
     withConnect,
     memo,
-)(withErrorBoundary(UsersPage));
+)(withErrorBoundary(UsersPage)) as React.ComponentType;

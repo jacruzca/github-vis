@@ -1,6 +1,7 @@
 import { cleanup } from '@testing-library/react';
 import React from 'react';
 import { renderWithReduxAndRouter } from '../../../utils/Renderers';
+import { fakeUsersList } from '../../utils/UserFaker';
 import UsersPage from '../UsersPage';
 
 describe('UsersPage tests', () => {
@@ -23,5 +24,20 @@ describe('UsersPage tests', () => {
             <UsersPage loading={true} usersList={[]} />,
         );
         expect(getByTestId('loading')).toBeVisible();
+    });
+
+    it('should display the search form', () => {
+        const { getByTestId } = renderWithReduxAndRouter(
+            <UsersPage usersList={[]} />,
+        );
+        expect(getByTestId('users-search-form')).toBeVisible();
+    });
+
+    it('should display the users list', () => {
+        const usersList = fakeUsersList(5);
+        const { getByTestId } = renderWithReduxAndRouter(
+            <UsersPage usersList={usersList} />,
+        );
+        expect(getByTestId('users-list')).toBeVisible();
     });
 });

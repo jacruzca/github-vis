@@ -8,7 +8,7 @@ import {
 } from './users-types';
 
 // The initial state of the App
-export const initialState: UsersListState = {
+export const usersListInitialState: UsersListState = {
     loading: false,
     login: 'jacruz',
 };
@@ -18,7 +18,7 @@ export const initialState: UsersListState = {
 Notice that it is not needed to handle the default case, a producer 
 that doesn't do anything will simply return the original state. 
 */
-const usersListReducer = (state = initialState, action: LoadUsers) =>
+const usersListReducer = (state = usersListInitialState, action: LoadUsers) =>
     produce(state, draft => {
         switch (action.type) {
             case LOAD_USERS:

@@ -2,12 +2,15 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { Store } from 'redux';
-import configureStore from '../../business/Store';
+import configureMockStore from 'redux-mock-store';
+import { initialState as IS } from '../../business/Reducers';
+
+const mockStore = configureMockStore();
 
 export const renderWithRedux = (
-    component: JSX.Element,
-    store: Store<any, any> = configureStore({}),
+    component: any,
+    initialState = IS,
+    store = mockStore(initialState),
 ) => {
     return {
         ...render(<Provider store={store}>{component}</Provider>),
@@ -15,13 +18,24 @@ export const renderWithRedux = (
     };
 };
 
-export const renderWithRouter = (component: JSX.Element) => {
+export const renderWithPlainRouter = (component: any) => {
     return <BrowserRouter>{component}</BrowserRouter>;
 };
 
+export const renderWithRouter = (component: any) => {
+    return {
+        ...render(<BrowserRouter>{component}</BrowserRouter>),
+    };
+};
+
 export const renderWithReduxAndRouter = (
-    component: JSX.Element,
-    store = configureStore({}),
+    component: any,
+    initialState = IS,
+    store = mockStore(initialState),
 ) => {
-    return renderWithRedux(renderWithRouter(component), store);
+    return renderWithRedux(
+        renderWithPlainRouter(component),
+        initialState,
+        store,
+    );
 };

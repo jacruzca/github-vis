@@ -8,11 +8,11 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import Api from './Api';
-import createReducer from './Reducers';
+import createReducer, { initialState as IS, RootState } from './Reducers';
 import sagas from './Sagas';
 
 export default function configureStore(
-    initialState = {},
+    initialState: RootState = IS,
     history?: History,
     api?: Api,
 ) {

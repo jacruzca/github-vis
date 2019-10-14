@@ -8,7 +8,10 @@ export type UsersSearchFormProps = {
     login?: string;
 };
 
-const UsersSearchForm: FunctionComponent<UsersSearchFormProps> = ({ loadUsers, login }: UsersSearchFormProps) => {
+const UsersSearchForm: FunctionComponent<UsersSearchFormProps> = ({
+    loadUsers,
+    login,
+}: UsersSearchFormProps) => {
     useEffect(() => {
         loadUsers(login);
     }, [loadUsers, login]);
@@ -28,13 +31,16 @@ const UsersSearchForm: FunctionComponent<UsersSearchFormProps> = ({ loadUsers, l
                 </Form.Label>
                 <Col sm={8}>
                     <Form.Control
+                        data-testid="login-input"
                         name="login"
                         type="text"
                         placeholder="ex. jacruzca"
                         defaultValue={login}
                         ref={register}
                     />
-                    <Form.Control.Feedback type="invalid">{errors.login}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                        {errors.login}
+                    </Form.Control.Feedback>
                 </Col>
                 <Col sm={2}>
                     <Button type="submit">Search</Button>
