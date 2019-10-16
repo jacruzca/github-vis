@@ -8,6 +8,4 @@ script:
     - npm run build
     - npm test
     - npm run test:coveralls
-deploy:
-    provider: netlify
-    site: 08229df9-8cb0-411c-b77c-681154b14188
+    - curl -X POST -d {} https://api.netlify.com/build_hooks/5da67ea6192509e5095bc6ac
