@@ -17,10 +17,10 @@ export const USER_FIELDS = `
 `;
 
 export interface UsersListResult {
-    search: {
+    search?: {
         userCount: number;
         pageInfo: PageInfo;
-        edges: [Edge<User>];
+        edges: Edge<User>[];
     };
 }
 
