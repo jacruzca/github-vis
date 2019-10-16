@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/jacruzca/github-vis.svg?branch=master)](https://travis-ci.org/jacruzca/github-vis)
+[![Coverage Status](https://coveralls.io/repos/github/jacruzca/github-vis/badge.svg?branch=master)](https://coveralls.io/github/jacruzca/github-vis?branch=master)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
