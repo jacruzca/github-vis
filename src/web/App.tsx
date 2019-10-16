@@ -34,6 +34,15 @@ const App = () => {
                                 </div>
                             )}
                         />
+                        <Route
+                            path="/env"
+                            component={() => (
+                                <div>
+                                    {process.env.REACT_APP_API_URL} -{' '}
+                                    {process.env.REACT_APP_GITHUB_KEY}
+                                </div>
+                            )}
+                        />
                     </Switch>
                 </Suspense>
             </Router>
