@@ -2,8 +2,8 @@
 import React, { FunctionComponent } from 'react';
 
 type Props = {
-    isEmpty: boolean;
-    error: string;
+    isEmpty?: boolean;
+    error?: string;
 };
 
 const DisplayNoResultsComponent: FunctionComponent<Props> = ({

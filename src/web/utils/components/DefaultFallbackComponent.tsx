@@ -11,7 +11,7 @@ const DefaultFallbackComponent = ({
     return (
         <div>
             <h3>Something wrong happened</h3>
-            <details style={{ whiteSpace: 'pre-wrap' }}>
+            <details data-testid="fallback" style={{ whiteSpace: 'pre-wrap' }}>
                 {error && error.toString()}
                 <br />
                 {errorInfo.componentStack}

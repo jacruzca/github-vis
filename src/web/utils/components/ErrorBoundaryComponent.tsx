@@ -1,8 +1,7 @@
 import React, { ErrorInfo } from 'react';
 
 type Props = {
-    onError: (error: Error, errorInfo: object) => void;
-    onReset: () => void;
+    onError?: (error: Error, errorInfo: object) => void;
     FallbackComponent: React.ComponentType<any>;
 };
 type State = {
