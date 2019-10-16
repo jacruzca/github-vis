@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/jacruzca/github-vis.svg?branch=master)](https://travis-ci.org/jacruzca/github-vis)
 [![Coverage Status](https://coveralls.io/repos/github/jacruzca/github-vis/badge.svg?branch=master)](https://coveralls.io/github/jacruzca/github-vis?branch=master)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/08229df9-8cb0-411c-b77c-681154b14188/deploy-status)](https://app.netlify.com/sites/brave-liskov-81ffcb/deploys)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
