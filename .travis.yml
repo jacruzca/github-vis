@@ -8,3 +8,6 @@ script:
     - npm run build
     - npm test
     - npm run test:coveralls
+deploy:
+    provider: netlify
+    site: 08229df9-8cb0-411c-b77c-681154b14188
