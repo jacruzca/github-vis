@@ -36,6 +36,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "test:watch": "react-scripts test --watch",
+        "test:coverage": "npm test -- --coverage --watchAll=false",
         "eject": "react-scripts eject",
         "lint": "npx eslint --ext .ts --ext .tsx src --fix"
     },
@@ -80,5 +81,11 @@
         "redux-logger": "^3.0.6",
         "redux-mock-store": "^1.5.3",
         "ts-jest": "^24.1.0"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/business/**/*.{js,jsx,ts,tsx}",
+            "src/web/**/*.{js,jsx,ts,tsx}"
+        ]
     }
 }
