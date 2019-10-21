@@ -26,7 +26,7 @@ describe('ErrorBoundaryComponent tests', () => {
     });
 
     it('should call onError', () => {
-        const onError = jest.fn();
+        const onError = jest.fn().mockImplementation(() => {});
         const { rerender } = render(
             <ErrorBoundaryComponent
                 FallbackComponent={DefaultFallbackComponent}
@@ -51,5 +51,20 @@ describe('ErrorBoundaryComponent tests', () => {
         expect(console.error).toHaveBeenCalledTimes(2);
 
         (console.error as jest.Mock).mockClear();
+    });
+
+    it('should display children if no error', () => {
+        const onError = jest.fn();
+        const { getByTestId } = render(
+            <ErrorBoundaryComponent
+                FallbackComponent={DefaultFallbackComponent}
+                onError={onError}
+            >
+                <div data-testid="child" />
+            </ErrorBoundaryComponent>,
+        );
+
+        expect(onError).not.toHaveBeenCalled();
+        expect(getByTestId('child')).toBeDefined();
     });
 });

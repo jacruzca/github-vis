@@ -1,4 +1,3 @@
-import { fakeUser } from '../../../web/users/utils/UserFaker';
 import { UsersListResult } from '../users-api';
 import {
     selectUsersList,
@@ -7,6 +6,7 @@ import {
     selectUsersListLogin,
 } from '../users-list-selectors';
 import { UsersListState } from '../users-types';
+import { fakeUsersListResult } from '../__mocks__/UserFaker';
 
 describe('Users List Selectors tests', () => {
     it('should return the login from state', () => {
@@ -55,28 +55,9 @@ describe('Users List Selectors tests', () => {
         expect(selected).toHaveLength(0);
     });
     it('should return the users list from state', () => {
-        const usersListResult: UsersListResult = {
-            search: {
-                edges: [
-                    {
-                        node: fakeUser(),
-                        cursor: '1',
-                    },
-                    {
-                        node: fakeUser(),
-                        cursor: '2',
-                    },
-                ],
-                userCount: 10,
-                pageInfo: {
-                    endCursor: '10',
-                    hasNextPage: true,
-                    hasPreviousPage: false,
-                    startCursor: '1',
-                },
-            },
-        };
+        const size = 2;
+        const usersListResult = fakeUsersListResult(size);
         const selected = selectUsersList.resultFunc(usersListResult);
-        expect(selected).toHaveLength(2);
+        expect(selected).toHaveLength(size);
     });
 });

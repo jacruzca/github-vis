@@ -1,6 +1,6 @@
 import { cleanup, render } from '@testing-library/react';
 import React from 'react';
-import { fakeUsersList } from '../../utils/UserFaker';
+import { fakeUsersList } from '../../../../business/users/__mocks__/UserFaker';
 import UsersList from '../UsersList';
 
 describe('UsersList tests', () => {
@@ -13,7 +13,9 @@ describe('UsersList tests', () => {
     });
 
     it('should show a no results message', () => {
-        const { getByTestId, queryByTestId } = render(<UsersList usersList={[]} />);
+        const { getByTestId, queryByTestId } = render(
+            <UsersList usersList={[]} />,
+        );
         expect(getByTestId('no-results')).toBeDefined();
         expect(queryByTestId('users-list')).toBeNull();
     });

@@ -1,6 +1,6 @@
 import { cleanup, render } from '@testing-library/react';
 import React from 'react';
-import { fakeUser } from '../../utils/UserFaker';
+import { fakeUser } from '../../../../business/users/__mocks__/UserFaker';
 import UserCard from '../UserCard';
 
 describe('User Card tests', () => {
