@@ -1,14 +1,14 @@
 import { memo } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { RootState } from '../../../business/Reducers';
+import { RootState } from '../../../../business/Reducers';
 import {
     selectUsersList,
     selectUsersListErrors,
     selectUsersListLoading,
     selectUsersListLogin,
-} from '../../../business/users/users-list-selectors';
-import withErrorBoundary from '../../utils/hocs/WithErrorBoundary';
+} from '../../../../business/users/users-list-selectors';
+import withErrorBoundary from '../../../utils/hocs/WithErrorBoundary';
 import UsersPage, { UsersPageProps } from '../components/UsersPage';
 
 const mapStateToProps = (state: RootState): UsersPageProps => {

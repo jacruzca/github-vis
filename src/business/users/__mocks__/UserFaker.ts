@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { User } from '../../../business/users/users-types';
 import { Edge } from '../../common/common-types';
-import { UsersListResult } from '../users-api';
+import { UserResult, UsersListResult } from '../users-api';
 
 export const fakeUser = (defaults: Partial<User> = {}): User => {
     const fake: User = {
@@ -22,6 +22,14 @@ export const fakeUsersList = (size = 5): User[] => {
         users.push(fakeUser());
     }
     return users;
+};
+
+export const fakeUserResult = (): UserResult => {
+    const res: UserResult = {
+        user: fakeUser(),
+    };
+
+    return res;
 };
 
 export const fakeUsersListResult = (size = 5): UsersListResult => {

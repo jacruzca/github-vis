@@ -18,7 +18,7 @@ export const renderWithRedux = (
     };
 };
 
-export const renderWithPlainRouter = (component: any) => {
+const renderWithPlainRouter = (component: any) => {
     return <BrowserRouter>{component}</BrowserRouter>;
 };
 

@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import { User } from '../../../business/users/users-types';
-import DisplayNoResultsComponent from '../../utils/components/DisplayNoResultsComponent';
+import { User } from '../../../../business/users/users-types';
+import DisplayNoResultsComponent from '../../../utils/components/DisplayNoResultsComponent';
 import UserCard from './UserCard';
 
 type Props = {

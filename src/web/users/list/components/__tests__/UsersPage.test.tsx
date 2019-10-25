@@ -1,7 +1,7 @@
 import { cleanup } from '@testing-library/react';
 import React from 'react';
-import { fakeUsersList } from '../../../../business/users/__mocks__/UserFaker';
-import { renderWithReduxAndRouter } from '../../../utils/Renderers';
+import { fakeUsersList } from '../../../../../business/users/__mocks__/UserFaker';
+import { renderWithReduxAndRouter } from '../../../../utils/Renderers';
 import UsersPage from '../UsersPage';
 
 describe('UsersPage tests', () => {

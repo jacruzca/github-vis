@@ -2,11 +2,8 @@ import { ApolloQueryResult } from 'apollo-boost';
 import { Action } from 'redux';
 import { fork, put } from 'redux-saga/effects';
 import { actionFailed } from './common/common-actions';
+import user from './users/user-sagas';
 import usersList from './users/users-list-sagas';
-
-export default function* rootSaga(api: any) {
-    yield fork(usersList, api);
-}
 
 export function* handleResponse<T>(
     res: ApolloQueryResult<T>,
@@ -23,4 +20,9 @@ export function* handleResponse<T>(
     } catch (err) {
         throw err;
     }
+}
+
+export default function* rootSaga(api: any) {
+    yield fork(usersList, api);
+    yield fork(user, api);
 }

@@ -12,6 +12,7 @@
         "apollo-link-logger": "^1.2.3",
         "bootstrap": "^4.3.1",
         "connected-react-router": "^6.5.2",
+        "date-fns": "^2.6.0",
         "graphql": "^14.5.8",
         "history": "^4.10.1",
         "immer": "^4.0.1",
@@ -89,6 +90,7 @@
         "collectCoverageFrom": [
             "src/business/**/*.{js,jsx,ts,tsx}",
             "src/web/**/*.{js,jsx,ts,tsx}"
-        ]
+        ],
+        "resetMocks": true
     }
 }

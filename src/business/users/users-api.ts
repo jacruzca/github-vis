@@ -1,4 +1,5 @@
 import { ApolloQueryResult } from 'apollo-client';
+import subDays from 'date-fns/subDays';
 import gql from 'graphql-tag';
 import Api from '../Api';
 import {
@@ -12,6 +13,7 @@ import { User } from './users-types';
 export const USER_FIELDS = `
     id  
     name
+    bio
     login
     avatarUrl(size: 200)
 `;
@@ -24,7 +26,51 @@ export interface UsersListResult {
     };
 }
 
+export interface UserResult {
+    user?: User;
+}
+
 const UsersApi = (api: Api) => {
+    const getUser = (
+        login: string,
+        from: Date = subDays(new Date(), 15),
+        to: Date = new Date(),
+    ): Promise<ApolloQueryResult<UserResult>> => {
+        const USER_QUERY = gql`
+            query($login: String!, $from: DateTime!, $to: DateTime!) {
+                user(login: $login) {
+                    ${USER_FIELDS}
+                    contributionsCollection(from: $from, to: $to) {
+                        totalCommitContributions
+                        endedAt
+                        startedAt
+                        totalRepositoryContributions
+                        contributionCalendar {
+                            totalContributions
+                            weeks {
+                                contributionDays {
+                                    contributionCount
+                                    date
+                                }
+                                firstDay
+                            }
+                        }
+                    }
+                }
+            }
+        `;
+
+        const result = api.query({
+            query: USER_QUERY,
+            variables: {
+                login,
+                from,
+                to,
+            },
+        });
+        return result as Promise<ApolloQueryResult<UserResult>>;
+    };
+
     const getUsersList = (
         login?: string,
         pagination?: ApiPagination,
@@ -57,7 +103,7 @@ const UsersApi = (api: Api) => {
         return result as Promise<ApolloQueryResult<UsersListResult>>;
     };
 
-    return { getUsersList };
+    return { getUsersList, getUser };
 };
 
 export default UsersApi;

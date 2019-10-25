@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { User } from '../../../business/users/users-types';
-import Layout from '../../common/components/Layout';
-import DisplayErrorComponent from '../../utils/components/DisplayErrorComponent';
-import DisplayLoadingComponent from '../../utils/components/DisplayLoadingComponent';
+import { User } from '../../../../business/users/users-types';
+import Layout from '../../../common/components/Layout';
+import DisplayErrorComponent from '../../../utils/components/DisplayErrorComponent';
+import DisplayLoadingComponent from '../../../utils/components/DisplayLoadingComponent';
 import UsersSearchFormContainer from '../containers/UsersSearchFormContainer';
 import UsersList from './UsersList';
 

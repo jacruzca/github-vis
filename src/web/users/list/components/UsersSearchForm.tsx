@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useMemo } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import useForm from 'react-hook-form';
-import { ApiPagination } from '../../../business/common/common-types';
+import { ApiPagination } from '../../../../business/common/common-types';
 
 export type UsersSearchFormProps = {
     loadUsers: (login?: string, pagination?: ApiPagination) => void;

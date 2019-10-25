@@ -1,7 +1,7 @@
 import { cleanup } from '@testing-library/react';
 import React from 'react';
-import { usersListInitialState } from '../../../../business/users/users-list-reducers';
-import { renderWithReduxAndRouter } from '../../../utils/Renderers';
+import { usersListInitialState } from '../../../../../business/users/users-list-reducers';
+import { renderWithReduxAndRouter } from '../../../../utils/Renderers';
 import UsersSearchFormContainer from '../UsersSearchFormContainer';
 
 describe('UsersContainer tests', () => {

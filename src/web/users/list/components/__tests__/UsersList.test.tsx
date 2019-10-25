@@ -1,6 +1,7 @@
 import { cleanup, render } from '@testing-library/react';
 import React from 'react';
-import { fakeUsersList } from '../../../../business/users/__mocks__/UserFaker';
+import { fakeUsersList } from '../../../../../business/users/__mocks__/UserFaker';
+import { renderWithRouter } from '../../../../utils/Renderers';
 import UsersList from '../UsersList';
 
 describe('UsersList tests', () => {
@@ -8,7 +9,9 @@ describe('UsersList tests', () => {
     it('should show a list of users', () => {
         const totalUsers = 5;
         const users = fakeUsersList(totalUsers);
-        const { getByTestId } = render(<UsersList usersList={users} />);
+        const { getByTestId } = renderWithRouter(
+            <UsersList usersList={users} />,
+        );
         expect(getByTestId('users-list').children).toHaveLength(totalUsers);
     });
 
